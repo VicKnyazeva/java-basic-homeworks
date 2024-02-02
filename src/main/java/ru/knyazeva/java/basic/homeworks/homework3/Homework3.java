@@ -1,13 +1,11 @@
 package ru.knyazeva.java.basic.homeworks.homework3;
 
-import java.util.Arrays;
-
 public class Homework3 {
     public static void main(String[] args) {
 
-        System.out.println("Task-1:");
+       System.out.println("Task-1:");
         int[][] array = new int[4][4];
-        fillArrayRandom(array, -5, 10);
+        fillArrayRandom(array, -100, 100);
         printArray(array);
         System.out.println("Sum of positive numbers: " + sumOfPositiveElements(array));
 
@@ -120,8 +118,7 @@ public class Homework3 {
     }
 
     public static long randomGenerator(long min, long max) {
-        max -= min;
         final double random = Math.random();
-        return Math.round((random * max) + min);
+        return Math.round(min + (random * (max-min+1)));
     }
 }
