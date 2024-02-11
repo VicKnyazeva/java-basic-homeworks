@@ -6,7 +6,7 @@ public class Box {
     private int height;
     private int length;
     private boolean isOpened;
-    private String stringObject = null;
+    private String stringObject;
 
     public Box(String color, int with, int height, int length, boolean isOpened) {
         this.color = color;
@@ -42,7 +42,7 @@ public class Box {
 
     public void printBoxInfo() {
         String boxStatus = isOpened ? "opened" : "closed";
-        String objectInfo = stringObject == null ? "has no object" : "has object";
+        String objectInfo = stringObject == null ? "has no object" : "has "+ stringObject;
         System.out.printf("Color: %s\nWidth: %d\nHeight: %d\nLength: %d\nStatus: %s and %s\n\n",
                 color, width, height, length, boxStatus, objectInfo);
     }
@@ -61,10 +61,10 @@ public class Box {
         }
     }
 
-    public void putObject() {
-        if (isOpened && (stringObject == null)) {
-            stringObject = "object";
-            System.out.println("Object was added");
+    public void putObject(String name) {
+        if (isOpened && stringObject == null) {
+            stringObject = name;
+            System.out.println(name + " was added");
         }
     }
 

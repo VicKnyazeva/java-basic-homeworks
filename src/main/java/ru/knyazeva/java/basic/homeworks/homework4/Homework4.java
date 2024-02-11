@@ -22,12 +22,12 @@ public class Homework4 {
         box.setColor("blue");
         box.printBoxInfo();
         box.open();
-        box.putObject();
+        box.putObject("Object1");
         box.close();
         box.removeObject();
         box.open();
         box.removeObject();
         box.close();
-        box.putObject();
+        box.putObject("Object2");
     }
 }
