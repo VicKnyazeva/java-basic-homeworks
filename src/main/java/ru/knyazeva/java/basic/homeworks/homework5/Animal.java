@@ -1,10 +1,10 @@
 package ru.knyazeva.java.basic.homeworks.homework5;
 
 public class Animal {
-    private String name;
-    private double stamina;
-    private double swimSpeed;
-    private double runSpeed;
+    protected String name;
+    protected double stamina;
+    protected double swimSpeed;
+    protected double runSpeed;
 
     public double getStamina() {
         return stamina;
