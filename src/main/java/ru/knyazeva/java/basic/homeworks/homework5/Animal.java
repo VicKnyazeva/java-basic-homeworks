@@ -1,18 +1,5 @@
 package ru.knyazeva.java.basic.homeworks.homework5;
 
-/*
-    Создайте классы Cat, Dog и Horse с наследованием от класса Animal
-    У каждого животного есть имя, скорость бега и плавания (м/с), и выносливость (измеряется в условных единицах)
-    Затраты выносливости:
-    Все животные на 1 метр бега тратят 1 ед выносливости,
-    Собаки на 1 метр плавания - 2 ед.
-    Лошади на 1 метр плавания тратят 4 единицы
-    Кот плавать не умеет.
-    Реализуйте методы run(Double distance) и swim(Double distance), которые должны возвращать время, затраченное на указанное действие,
-    и “понижать выносливость” животного. Если выносливости не хватает, то возвращаем время -1 и указываем что у животного появилось состояние усталости.
-    При выполнении действий пишем сообщения в консоль.
-    Добавляем метод info(), который выводит в консоль состояние животного.
-    */
 public class Animal {
     private String name;
     private double stamina;
@@ -35,40 +22,51 @@ public class Animal {
         return name;
     }
 
-    protected Animal(String name, double stamina, double swimSpeed, double runSpeed) {
+    protected Animal(String name, double stamina, double runSpeed, double swimSpeed) {
         this.name = name;
         this.stamina = stamina;
-        this.swimSpeed = swimSpeed;
         this.runSpeed = runSpeed;
+        this.swimSpeed = swimSpeed;
     }
 
     public double run(double distance) {
-        System.out.println(name + "бежит");
-
-        this.stamina -= distance * getRunCost();
-        if (this.stamina < 0) {
+        stamina -= distance * getRunCost();
+        if (stamina < 0) {
+            System.out.printf("%s сделал попытку пробежать дистанцию. Для бега на %.2f м не хватает выносливости. Выносливость после попытки: %.0f у.е\n",
+                    name, distance, stamina);
             return -1.0;
         }
-        return distance / this.runSpeed;
+        System.out.println(name + " бежит со скоростью " + runSpeed + " м/с");
+
+        return distance / runSpeed;
     }
 
     public double swim(double distance) {
-        System.out.println(name + "плывёт");
-
-        this.stamina -= distance * getSwimCost();
-        if (this.stamina < 0) {
+        stamina -= distance * getSwimCost();
+        if (stamina < 0) {
+            System.out.printf("%s сделал попытку проплыть дистанцию. Для плавания на %.2f м не хватает выносливости. Выносливость после попытки: %.0f у.е\n",
+                    name, distance, stamina);
             return -1.0;
         }
-        return distance / this.runSpeed;
+        System.out.println(name + " плывёт со скоростью " + swimSpeed + " м/с");
+
+        return distance / swimSpeed;
     }
 
     public void info() {
         System.out.print(name + ": ");
         if (stamina <= 0)
-            System.out.print("уставшее");
+            System.out.print("состояние уставшее");
         else
-            System.out.print("выносливость: " + stamina);
+            System.out.print("выносливость " + stamina + " у.е.");
         System.out.println();
+    }
+
+    public void fullInfo(double animalTime, double distance) {
+        if (animalTime <= 0)
+            System.out.printf("%s не смог преоделеть дистанцию\n", name);
+        else
+            System.out.printf("%s преодолел дистанцию в %.2f м за %.2f сек.\n", name, distance, animalTime);
     }
 
     public double getRunCost() {
