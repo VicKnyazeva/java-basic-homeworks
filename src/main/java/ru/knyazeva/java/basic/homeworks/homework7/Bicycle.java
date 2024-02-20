@@ -1,7 +1,6 @@
 package ru.knyazeva.java.basic.homeworks.homework7;
 
 public class Bicycle implements Movable {
-
     public static final int RES_PER_KM = 2;
 
     @Override

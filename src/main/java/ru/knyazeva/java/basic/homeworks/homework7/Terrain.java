@@ -9,7 +9,4 @@ public enum Terrain {
         this.terrain = terrain;
     }
 
-    public int getValue() {
-        return terrain;
-    }
 }

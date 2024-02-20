@@ -24,7 +24,10 @@ public class Man implements Driver {
     }
 
     public void takeTransport(Movable transport) {
-        currentTransport = transport;
+        if (currentTransport == null)
+            currentTransport = transport;
+        else
+            System.out.println("Сначала откажитесь от текущего транспортного средства");
     }
 
     public void freeTransport() {
@@ -40,8 +43,7 @@ public class Man implements Driver {
         return true;
     }
 
-    public void outStats() {
-        System.out.printf("name=%-20s, force=%-10d|\n", name, force);
+    public void printStats() {
+        System.out.printf("name: %s, force: %d\n", name, force);
     }
-
 }
