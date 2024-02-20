@@ -1,15 +1,17 @@
 package ru.knyazeva.java.basic.homeworks.homework7;
 
-public class Bicycle implements Transport {
+public class Bicycle implements Movable {
+
+    public static final int RES_PER_KM = 2;
 
     @Override
-    public boolean getAllowedTerrain(int terrain) {
-        return terrain == 1 || terrain == 2;
+    public boolean isTerrainAllowed(Terrain terrain) {
+        return terrain == Terrain.Dense_Forest || terrain == Terrain.Flat_Land;
     }
 
     @Override
-    public void decreaseResource(int distance) {
-
+    public int decreaseResource(int distance) {
+        return distance / RES_PER_KM;
     }
 
     @Override
@@ -18,14 +20,22 @@ public class Bicycle implements Transport {
     }
 
     @Override
-    public boolean move(int distance, int terrain) {
-        if (getAllowedTerrain(terrain)) {
+    public boolean move(int distance, Terrain terrain, Driver driver) {
+        if (driver == null) {
+            System.out.println("Поездка без водителя невозможна");
+            return false;
+        }
+        if (!isTerrainAllowed(terrain)) {
+            System.out.println("Поездка по этой местности невозможна");
+            return false;
+        }
+        if (isDistanceAvailable(distance)) {
             System.out.println("Велосипед едет");
-            //decreaseResource(distance);
+            int driverForce = decreaseResource(distance);
+            driver.decreaseForce(driverForce);
             return true;
         }
-        //System.out.println("Для поездки лошади не хватит сил");
+        System.out.println("Для поездки не хватит сил");
         return false;
     }
-
 }

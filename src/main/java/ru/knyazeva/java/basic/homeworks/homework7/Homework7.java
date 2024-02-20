@@ -2,14 +2,20 @@ package ru.knyazeva.java.basic.homeworks.homework7;
 
 public class Homework7 {
     public static void main(String[] args) {
+        Man man = new Man("Joe Doe", 50);
+        man.outStats();
 
         Car car = new Car(50);
-        Man man = new Man("hgh", car);
-        man.move(car, 400, 2);
+        man.takeTransport(car);
+        man.move(400, Terrain.Flat_Land);
         System.out.println(car.getFuel());
-        man.move(null, 10, 1);
+        man.freeTransport();
 
-        //car.move(550, 2);
-
+        man.outStats();
+        man.move(10, Terrain.Dense_Forest);
+        man.outStats();
+        man.takeTransport(new Bicycle());
+        man.move(50, Terrain.Dense_Forest);
+        man.outStats();
     }
 }

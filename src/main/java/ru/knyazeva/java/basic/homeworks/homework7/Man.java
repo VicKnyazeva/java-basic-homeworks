@@ -1,30 +1,47 @@
 package ru.knyazeva.java.basic.homeworks.homework7;
 
-public class Man {
+public class Man implements Driver {
     private String name;
-    private Transport currentTransport;
+    private Movable currentTransport;
     private int force;
     public static final int RES_PER_KM = 5;
 
-    public Man(String name, Transport currentTransport) {
+    public Man(String name, int force) {
         this.name = name;
-        this.currentTransport = currentTransport;
-        this.force = 50;
+        this.force = force;
     }
 
-    public void move(Transport transport, int distance, int terrain) {
-        if(transport == null)
+    public Movable getCurrentTransport() {
+        return currentTransport;
+    }
+
+    public boolean move(int distance, Terrain terrain) {
+        if (currentTransport == null) {
             System.out.println("Человек идет пешком");
-        else
-            transport.move(distance, terrain);
+            return true;
+        }
+        return currentTransport.move(distance, terrain, this);
     }
 
-    public void takeTransport(Transport transport) {
+    public void takeTransport(Movable transport) {
         currentTransport = transport;
     }
 
-    public void freeTransport(Transport transport) {
-        transport = null;
+    public void freeTransport() {
+        currentTransport = null;
+    }
+
+    @Override
+    public boolean decreaseForce(int force) {
+        if (this.force < force) {
+            return false;
+        }
+        this.force -= force;
+        return true;
+    }
+
+    public void outStats() {
+        System.out.printf("name=%-20s, force=%-10d|\n", name, force);
     }
 
 }
