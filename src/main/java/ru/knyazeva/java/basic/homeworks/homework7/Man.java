@@ -16,15 +16,15 @@ public class Man {
         if(transport == null)
             System.out.println("Человек идет пешком");
         else
-            currentTransport.move(distance, terrain);
+            transport.move(distance, terrain);
     }
 
     public void takeTransport(Transport transport) {
         currentTransport = transport;
     }
 
-    public void freeTransport() {
-        currentTransport = null;
+    public void freeTransport(Transport transport) {
+        transport = null;
     }
 
 }
