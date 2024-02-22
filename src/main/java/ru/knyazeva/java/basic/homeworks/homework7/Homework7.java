@@ -6,20 +6,20 @@ public class Homework7 {
         man.printStats();
 
         Car car = new Car(50);
-        car.move(400, Terrain.Flat_Land, null);
+        car.move(400, Terrain.FLAT_LAND, null);
         man.takeTransport(car);
-        man.move(400, Terrain.Flat_Land);
+        man.move(400, Terrain.FLAT_LAND);
         man.takeTransport(new Horse(100));
-        man.move(200, Terrain.Flat_Land);
+        man.move(200, Terrain.FLAT_LAND);
         System.out.println(car.getFuel());
         man.freeTransport();
         man.printStats();
 
-        man.move(10, Terrain.Swamp);
+        man.move(10, Terrain.SWAMP);
         man.printStats();
 
         man.takeTransport(new Bicycle());
-        man.move(50, Terrain.Dense_Forest);
+        man.move(50, Terrain.DENSE_FOREST);
         man.printStats();
     }
 }

@@ -25,7 +25,7 @@ public class Car implements Movable {
 
     @Override
     public boolean isTerrainAllowed(Terrain terrain) {
-        return terrain == Terrain.Flat_Land;
+        return terrain == Terrain.FLAT_LAND;
     }
 
     @Override

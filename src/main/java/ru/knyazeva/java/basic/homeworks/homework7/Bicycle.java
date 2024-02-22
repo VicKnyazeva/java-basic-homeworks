@@ -5,7 +5,7 @@ public class Bicycle implements Movable {
 
     @Override
     public boolean isTerrainAllowed(Terrain terrain) {
-        return terrain == Terrain.Dense_Forest || terrain == Terrain.Flat_Land;
+        return terrain == Terrain.DENSE_FOREST || terrain == Terrain.FLAT_LAND;
     }
 
     @Override
