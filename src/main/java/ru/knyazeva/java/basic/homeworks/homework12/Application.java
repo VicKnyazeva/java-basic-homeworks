@@ -12,7 +12,16 @@ public class Application {
         String currentWorkingDir = getProperty("user.dir");
 
         File file = new File(currentWorkingDir);
-        File[] textFiles = file.listFiles((dir, name) -> name.toLowerCase().endsWith(".txt"));
+        if(!file.isDirectory()) {
+            out.println("Переданный путь не является директорией.");
+            return;
+        }
+        File[] textFiles = getTextFiles(file);
+        if(textFiles.length == 0) {
+            out.println("Текстовых файлов в текущей рабочей директории проекта не найдено.");
+            return;
+        }
+
         out.println("Текстовые файлы в текущей рабочей директории проекта:\n" + Arrays.toString(textFiles));
 
         out.print("\nВведите имя файла, с которым хотите работать: ");
@@ -32,15 +41,26 @@ public class Application {
         }
     }
 
-    private static void readFile(File currentFile) {
-        if (!currentFile.canRead()) {
+    /**
+     * Lists all text files in directory
+     * @param file instance of File (directory) for listing text files
+     * @return array of files with .txt extension
+     */
+    private static File[] getTextFiles(File file) {
+        return file.listFiles((dir, name) -> name.toLowerCase().endsWith(".txt"));
+    }
+
+    /**
+     * Reads data from a file
+     * @param file file for reading data
+     */
+    private static void readFile(File file) {
+        if (!file.canRead()) {
             out.println("Файл закрыт на чтение.");
             return;
         }
 
-        try (FileInputStream fis = new FileInputStream(currentFile);
-             BufferedInputStream bis = new BufferedInputStream(fis);
-             InputStreamReader in = new InputStreamReader(bis)) {
+        try (InputStreamReader in = new InputStreamReader(new BufferedInputStream(new FileInputStream(file)))) {
             int n = in.read();
             while (n != -1) {
                 out.print((char) n);
@@ -51,15 +71,20 @@ public class Application {
         }
     }
 
-    private static void writeToFile(File currentFile, String userData) {
-        if (!currentFile.canWrite()) {
-            out.println("Файл закрыт на закрыт на запись.");
+    /**
+     * Writes data to a file
+     * @param file file for writing data
+     * @param data data to write
+     */
+    private static void writeToFile(File file, String data) {
+        if (!file.canWrite()) {
+            out.println("Файл закрыт на запись.");
             return;
         }
-        try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(currentFile, true))) {
-            byte[] buffer = userData.getBytes(StandardCharsets.UTF_8);
+        try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file, true))) {
+            byte[] buffer = data.getBytes(StandardCharsets.UTF_8);
 
-            if (currentFile.length() > 0) {
+            if (file.length() > 0) {
                 out.write(' ');
             }
 
